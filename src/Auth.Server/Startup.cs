@@ -10,9 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 using Auth.Core.Interfaces;
 using Auth.Infrastructure.Repositories;
+using Auth.Server.Data.Identity;
 
 namespace Auth.Server
 {
@@ -30,7 +32,7 @@ namespace Auth.Server
         {
             services.AddScoped<IUsersRepository, UsersRepository>();
 
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<AuthUser>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
