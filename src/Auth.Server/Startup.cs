@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using Auth.Core.Interfaces;
+using Auth.Infrastructure.Repositories;
+
 namespace Auth.Server
 {
     public class Startup
@@ -25,6 +28,12 @@ namespace Auth.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUsersRepository, UsersRepository>();
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddControllers();
         }
 
